@@ -2,7 +2,7 @@
 
 # Session 1: Introduction to R
 # By Benjamin Wee
-# Benjamin.Wee@team.telstra.com
+# @BenwWee
 
 ##########################################################
 
@@ -63,8 +63,8 @@ print("Ben is making the complex simple")
   setwd("")
   
   ## Read in the Excel spreadsheets. Assign them to variables "quantity" and "prices"
-  quantity <- read
-  prices
+  quantity <- read_excel("quantity.xlsx")
+  prices <- read_excel("prices.xlsx")
 
   ## Let's see some basic summary statistics for our data. What do you notice?
   summary(quantity)  
@@ -93,7 +93,12 @@ print("Ben is making the complex simple")
                   filter(prices > 0,                       # "Filter" out negative prices
                          !is.na(prices))                   # is.na() checks for NAs, ! is a NOT oprator. We do NOT want any NAs
   
-  prices_clean %>% summary()                
+  prices_clean %>% summary() 
+  
+  # If we didn't use pipes, this is what the code would look like
+  prices_clean <- tidyr::gather(prices, year, prices, 3:6) 
+  prices_clean <- tidyr::unite(prices_clean, Dates, year, Date, sep = "/") 
+  prices_clean <- dplyr::filter(prices_clean, prices > 0, !is.na(prices))  
                   
   ## Let's do the same for the quantity dataset
   View(quantity)
@@ -247,11 +252,7 @@ print("Ben is making the complex simple")
   prices <- cbind(dates_sep, data) %>% 
     select(-quantity, -Dates) %>% 
     spread(Years, prices)
-  
-  # Save as excel spreadsheets
- # write.csv(quantity, "quantity.csv")
-#  write.csv(prices, "prices.csv")
-      
+    
 
 
  

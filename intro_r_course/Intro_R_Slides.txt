@@ -1,25 +1,17 @@
 ---
 title: "Introduction to R"
-author: "Benjamin Wee and Stephanie Hermawan"
+author: "Benjamin Wee"
 date: "09/03/2018"
 output: ioslides_presentation
 ---
 
-## Welcome - Ben
+## Welcome
 
-- Who Am I? 2018 CSB graduate, former tutor in statistics and econometrics at Unimelb
+- Who Am I? 2018 graduate, former tutor in statistics and econometrics at Unimelb
 
 - R user for 2 years, self-taught for empirical research and research assistant work. Now a self-processed stats/coding nerd
 
-- Follow me on twitter: @BenwWee
-
-## Welcome - Steph
-
-- Who am I? Also a 2018 grad, doing my first rotation in Telstra Software Engineering Service Assurance & Billing team. Last year I was a 2017 summer vac in Finance Strategy team. 
-
-- I recently graduated UNSW, studying Computer Science & Commerce. I've been using R for about 4 years, in the context of marketing analytics and machine learning in university level courses.
-
-- I don't use twitter ^_^
+- Email: Benjamin.Wee@team.telstra.com
 
 ## What is R and Rstudio?
 
@@ -30,6 +22,51 @@ output: ioslides_presentation
 - R facilitates a complete data analysis workflow from loading/cleaning data to producing publishable and reproducible documents/slides.
 
 - Used by analysts, statisticians and data scientists for data cleaning, manipulation, modelling and visualisation
+
+## Why should I learn R? 
+
+>- R can automate and apply functions quickly over many datasets more efficiently than Excel
+
+>- Massive library full of packages (add-ons) which contribute to a large huge visualiastion and modelling libraries
+
+>- It is *much* easier to reproduce results and debug without having to worry about multiple tabs, linked formulas and stuff breaking
+
+>- Scripting allows you to identify where you made mistakes in your process quickly and then re-run your analysis so that everything is updated immediately
+
+>- Excel formulas and functions are stored in the same place. This makes it prone to mistakes. Also slow with large datasets
+
+>- It is free and you look cool
+
+## R has a very steep learning curve
+
+- R makes doing easy things in Excel hard but hard things in Excel very easy 
+
+- Excel allows you to have any "data type" (think numbers, characters, etc) and output in any cell. R forces each column to have the same data type. With a constraint, you are forced to pay more attention to what your data is and how you perform analysis
+
+- You will be forced to think more critically about your data. We will sacrifice convenience for precision and efficiency
+
+## Learning curves
+
+```{r echo=FALSE, fig.height=4, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(dplyr)
+library(ggplot2)
+x <- rep(0:100, 2)
+R <- 20*(x[1:101])^0.26
+excel <- 0.008*(x[102:length(x)]+38)^1.99-10
+data <-cbind(as.data.frame(c(rep("R", 101), rep("Excel", 101))), x, as.data.frame(c(R,excel)))
+names(data) <- c("Tool", "x", "Difficulty")
+
+data[dim(data)[1]:185, 3] = NA
+
+ggplot(data, aes(x = x, y = Difficulty)) +
+  geom_line(aes(colour = Tool)) +
+  labs(title = "Difficulty vs complexity tradeoff",
+       x = "Complexity") +
+  scale_y_continuous(breaks=c(0, 25, 50, 75, 100)) +
+  theme_minimal() + theme(panel.grid.minor = element_line(colour="white"))
+
+```
+
 
 ## What are we learning today?
 
@@ -51,22 +88,13 @@ output: ioslides_presentation
 
 - Thank you for attending this session! I hope you all had a good time and feel inspired to learn more about R
 
-- Please join our yammer group: R users
+- There is an unused Yammer R group, but it's been unsued for 2 years. I would really like to revive it!
 
-* Potential classes:
+* Future classes (if I have the capacity):
     - Loading in different types of spreadsheets (loading in data directly from internet)
     - Understanding the principles of 'clean' or 'tidy' data
     - More fun with ggplot2!
     - Use of base R functions for more niche cases (indexing data, conditional statements, booleens)
-    
-
-## Learning R independently
-
-- R makes doing easy things in Excel hard but hard things in Excel very easy 
-
-- Excel allows you to have any "data type" (think numbers, characters, etc) and output in any cell. R forces each column to have the same data type. With a constraint, you are forced to pay more attention to what your data is and how you perform analysis
-
-- You will be forced to think more critically about your data. We will sacrifice convenience for precision and efficiency
   
 ## Learning R independently
 
@@ -94,46 +122,9 @@ output: ioslides_presentation
 
 - Much of the learning process is understanding *how* to google questions. If your question doesn't yield the answer you want, try asking it in a different way, you will eventually come to the solution
 
-- Ask us! :)
+- Ask me! :)
 
 ## Resources and cheat sheets
 - Dplyr cheatsheet: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 
 - ggplot2 cheatsheet: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
-
-## Why can R do for you?
-
-- R can automate and apply functions quickly over many datasets more efficiently than Excel
-
-- Massive library full of packages (add-ons) which contribute to a large huge visualiastion and modelling libraries
-
-- It is *much* easier to reproduce results and debug without having to worry about multiple tabs, linked formulas and stuff breaking
-
-- Scripting allows you to identify where you made mistakes in your process quickly and then re-run your analysis so that everything is updated immediately
-
-- Excel formulas and functions are stored in the same place. This makes it prone to mistakes. Also slow with large datasets
-
-- It is free and you look cool
-
-## Learning curves
-
-```{r echo=FALSE, fig.height=4, message=FALSE, warning=FALSE, paged.print=FALSE}
-library(dplyr)
-library(ggplot2)
-x <- rep(0:100, 2)
-R <- 20*(x[1:101])^0.26
-excel <- 0.008*(x[102:length(x)]+38)^1.99-10
-data <-cbind(as.data.frame(c(rep("R", 101), rep("Excel", 101))), x, as.data.frame(c(R,excel)))
-names(data) <- c("Tool", "x", "Difficulty")
-
-data[dim(data)[1]:185, 3] = NA
-
-ggplot(data, aes(x = x, y = Difficulty)) +
-  geom_line(aes(colour = Tool)) +
-  labs(title = "Difficulty vs complexity tradeoff",
-       x = "Complexity") +
-  scale_y_continuous(breaks=c(0, 25, 50, 75, 100)) +
-  theme_minimal() + theme(panel.grid.minor = element_line(colour="white"))
-
-```
-

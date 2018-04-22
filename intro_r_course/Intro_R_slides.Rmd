@@ -101,6 +101,8 @@ output: ioslides_presentation
 
 - ggplot2 cheatsheet: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
+- R styleguide: http://style.tidyverse.org/
+
 ## Why can R do for you?
 
 - R can automate and apply functions quickly over many datasets more efficiently than Excel
